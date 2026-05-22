@@ -193,7 +193,7 @@
   .hero .img-bg::after {
     content: ""; position: absolute; inset: 0;
     background:
-      linear-gradient(95deg, rgba(22,32,26,0.78) 0%, rgba(22,32,26,0.55) 38%, rgba(22,32,26,0.20) 65%, rgba(22,32,26,0.45) 100%),
+      linear-gradient(95deg, rgba(22,32,26,0.88) 0%, rgba(22,32,26,0.72) 38%, rgba(22,32,26,0.45) 65%, rgba(22,32,26,0.60) 100%),
       radial-gradient(ellipse at 38% 32%, rgba(244,200,120,0.30), transparent 45%);
   }
   .hero .lantern {
@@ -940,8 +940,14 @@
     .radio-card { padding: 11px 12px; gap: 8px; }
     .radio-card .l { font-size: 15px; }
     /* Fix 4: form side padding too wide on small screens */
-    .full-form { padding: 24px 20px 24px; }
+    .full-form { padding: 24px 20px 24px; max-width: 100%; }
     .full-form::before { left: 20px; right: 20px; }
+    .contact-grid { overflow: hidden; }
+    /* Fix 5: hide photo caption on mobile to prevent CTA overlap */
+    .hero .img-credit { display: none; }
+    /* Fix 6: stack hero CTAs vertically so phone link doesn't crowd buttons */
+    .hero .ctas { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .hero .phone-quiet { margin-left: 0; }
     /* Fix 2: sticky bar hidden until scrolled — JS controls .sticky-call.visible */
     .sticky-call { opacity: 0; pointer-events: none; transition: opacity 0.3s; }
     .sticky-call.visible { opacity: 1; pointer-events: all; }
