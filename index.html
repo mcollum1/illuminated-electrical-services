@@ -939,6 +939,9 @@
     /* Fix 3: radio cards — smaller text on mobile so they fit side-by-side */
     .radio-card { padding: 11px 12px; gap: 8px; }
     .radio-card .l { font-size: 15px; }
+    /* Fix 4: form side padding too wide on small screens */
+    .full-form { padding: 24px 20px 24px; }
+    .full-form::before { left: 20px; right: 20px; }
     /* Fix 2: sticky bar hidden until scrolled — JS controls .sticky-call.visible */
     .sticky-call { opacity: 0; pointer-events: none; transition: opacity 0.3s; }
     .sticky-call.visible { opacity: 1; pointer-events: all; }
