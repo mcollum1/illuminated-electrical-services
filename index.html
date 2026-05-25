@@ -400,10 +400,36 @@
     font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
     color: var(--brass-deep); padding-bottom: 4px; line-height: 1.7;
   }
-  .testimonials-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 24px; align-items: start;
+  /* --- TESTIMONIALS CAROUSEL --- */
+  .testimonials-carousel { position: relative; overflow: hidden; border-radius: 6px; }
+  .testimonials-track {
+    display: flex;
+    transition: transform 0.75s cubic-bezier(.22,.61,.36,1);
+    will-change: transform;
   }
+  .testimonials-track .tcard { flex: 0 0 100%; border-radius: 0; }
+  .carousel-nav {
+    display: flex; justify-content: center; align-items: center;
+    gap: 10px; margin-top: 20px;
+  }
+  .c-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--rule); border: none; padding: 0; cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .c-dot.on { background: var(--brass); transform: scale(1.4); }
+  .carousel-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 40px; height: 40px; border-radius: 50%; z-index: 4;
+    background: rgba(243,239,226,0.15); border: 1px solid rgba(243,239,226,0.25);
+    color: var(--ivory); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.2s, background 0.2s;
+  }
+  .testimonials-carousel:hover .carousel-arrow { opacity: 1; }
+  .carousel-arrow:hover { background: rgba(243,239,226,0.28); }
+  .carousel-arrow.prev { left: 16px; }
+  .carousel-arrow.next { right: 16px; }
   .tcard {
     background: var(--plaster);
     border: 1px solid var(--rule-soft);
@@ -874,7 +900,6 @@
     .gallery { grid-auto-rows: 200px; }
     .cat-grid { grid-template-columns: repeat(2, 1fr); }
     .promise-grid { grid-template-columns: repeat(2, 1fr); }
-    .testimonials-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 1024px) {
     .section-head, .about .wrap, .contact .head, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -1212,7 +1237,14 @@
       </div>
     </div>
 
-    <div class="testimonials-grid reveal">
+    <div class="testimonials-carousel reveal">
+      <button class="carousel-arrow prev" aria-label="Previous review">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg>
+      </button>
+      <button class="carousel-arrow next" aria-label="Next review">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
+      </button>
+      <div class="testimonials-track">
       <!-- Featured testimonial — Mitch C. -->
       <div class="tcard featured">
         <div class="stars">
@@ -1259,7 +1291,12 @@
           <div class="source">Brookfield, CT · Google Review</div>
         </div>
       </div>
-    </div>
+      </div><!-- /.testimonials-track -->
+      <div class="carousel-nav">
+        <button class="c-dot on" aria-label="Review 1 of 2"></button>
+        <button class="c-dot" aria-label="Review 2 of 2"></button>
+      </div>
+    </div><!-- /.testimonials-carousel -->
 
     <div class="ctas reveal">
       <a class="link" href="https://share.google/oZpyMZh6n5RXWsUWL" target="_blank" rel="noopener">Read all reviews on Google →</a>
@@ -1849,6 +1886,34 @@
     if (e.key === 'ArrowLeft') navLb(-1);
     if (e.key === 'ArrowRight') navLb(1);
   });
+
+  // ----- Testimonials carousel -----
+  (function() {
+    const carousel = document.querySelector('.testimonials-carousel');
+    if (!carousel) return;
+    const track = carousel.querySelector('.testimonials-track');
+    const cards = track.querySelectorAll('.tcard');
+    const dots  = carousel.querySelectorAll('.c-dot');
+    const prev  = carousel.querySelector('.carousel-arrow.prev');
+    const next  = carousel.querySelector('.carousel-arrow.next');
+    let cur = 0, timer;
+
+    function goTo(i) {
+      cur = ((i % cards.length) + cards.length) % cards.length;
+      track.style.transform = `translateX(-${100 * cur}%)`;
+      dots.forEach((d, j) => d.classList.toggle('on', j === cur));
+    }
+    function startAuto() { timer = setInterval(() => goTo(cur + 1), 7000); }
+    function stopAuto()  { clearInterval(timer); }
+
+    prev.addEventListener('click', () => { stopAuto(); goTo(cur - 1); startAuto(); });
+    next.addEventListener('click', () => { stopAuto(); goTo(cur + 1); startAuto(); });
+    dots.forEach((d, i) => d.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); }));
+    carousel.addEventListener('mouseenter', stopAuto);
+    carousel.addEventListener('mouseleave', startAuto);
+
+    goTo(0); startAuto();
+  })();
 
   // ----- Sticky call bar — show after hero scrolls out of view -----
   (function() {
