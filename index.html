@@ -379,140 +379,179 @@
     font-size: 18px; color: var(--ink-soft); line-height: 1.3;
   }
 
-  /* --- TESTIMONIALS --- */
+  /* ============================
+     TESTIMONIALS — PREMIUM
+  ============================ */
   .testimonials {
-    background: var(--ivory);
-    padding: 100px 0 90px;
-    border-bottom: 1px solid var(--rule-soft);
+    background: var(--forest);
+    padding: 0;
+    border-bottom: 1px solid rgba(21,38,29,0.5);
+    position: relative;
+    overflow: hidden;
   }
-  .testimonials .head {
-    display: grid; grid-template-columns: 1fr 1.2fr;
-    gap: 56px; align-items: end; margin-bottom: 56px;
+
+  /* Progress bar at section top */
+  .t-progress-wrap {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: rgba(179,146,71,0.1); z-index: 20;
   }
-  .testimonials h2 {
-    font-family: 'EB Garamond', serif; font-weight: 400;
-    font-size: clamp(40px, 4.2vw, 60px);
-    line-height: 1; letter-spacing: -0.02em; color: var(--forest); margin-top: 18px;
+  #t-progress { height: 100%; background: var(--brass); width: 0%; }
+
+  /* Two-column stage */
+  .t-stage {
+    display: grid;
+    grid-template-columns: 1fr 460px;
+    min-height: 660px;
   }
-  .testimonials h2 em { font-style: italic; color: var(--clay); }
-  .testimonials .sub {
+
+  /* ——— LEFT: QUOTE PANE ——— */
+  .t-pane-quote {
+    padding: 88px 68px 80px 0;
+    position: relative;
+    display: flex; flex-direction: column;
+    justify-content: center;
+  }
+  /* Giant decorative open-quote */
+  .t-pane-quote::before {
+    content: "\201C";
+    font-family: 'EB Garamond', serif;
+    font-size: 400px; line-height: 0.8;
+    color: var(--brass); opacity: 0.05;
+    position: absolute; top: 0px; left: -48px;
+    pointer-events: none; user-select: none; z-index: 0;
+  }
+  .t-header { position: relative; z-index: 1; margin-bottom: 52px; }
+  .t-header .eyebrow {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--brass-deep); padding-bottom: 4px; line-height: 1.7;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--brass); display: block; margin-bottom: 14px;
   }
-  /* --- TESTIMONIALS CAROUSEL --- */
-  .testimonials-carousel { position: relative; overflow: hidden; border-radius: 6px; }
-  .testimonials-track {
-    display: flex;
-    transition: transform 0.75s cubic-bezier(.22,.61,.36,1);
-    will-change: transform;
+  .t-header h2 {
+    font-family: 'EB Garamond', serif; font-weight: 400;
+    font-size: clamp(38px, 4vw, 58px);
+    line-height: 0.95; letter-spacing: -0.02em;
+    color: var(--ivory); margin: 0;
   }
-  .testimonials-track .tcard { flex: 0 0 100%; border-radius: 0; }
-  .carousel-nav {
-    display: flex; justify-content: center; align-items: center;
-    gap: 10px; margin-top: 20px;
+  .t-header h2 em { font-style: italic; color: var(--brass); }
+
+  /* Animated review content */
+  .t-review { position: relative; z-index: 1; }
+  .t-stars { display: flex; gap: 3px; margin-bottom: 24px; }
+  .t-stars svg { width: 14px; height: 14px; fill: var(--brass); }
+  .t-quote {
+    font-family: 'EB Garamond', serif; font-style: italic;
+    font-size: clamp(17px, 1.7vw, 21px); line-height: 1.65;
+    color: rgba(243,239,226,0.87);
+    margin: 0 0 28px; max-width: 58ch;
   }
-  .c-dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--rule); border: none; padding: 0; cursor: pointer;
+  .t-attr {
+    padding-top: 22px;
+    border-top: 1px solid rgba(243,239,226,0.1);
+  }
+  .t-name {
+    font-family: 'EB Garamond', serif; font-style: italic;
+    font-size: 17px; color: var(--ivory); margin-bottom: 4px;
+  }
+  .t-source {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--brass);
+  }
+
+  /* Navigation row */
+  .t-nav {
+    display: flex; align-items: center; gap: 18px;
+    margin-top: 40px; position: relative; z-index: 1;
+  }
+  .t-arrow {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid rgba(179,146,71,0.35);
+    background: transparent; color: var(--brass);
+    cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  }
+  .t-arrow:hover {
+    border-color: var(--brass); background: rgba(179,146,71,0.1);
+    transform: scale(1.08);
+  }
+  .t-dots { display: flex; gap: 8px; align-items: center; }
+  .t-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: rgba(243,239,226,0.18);
+    border: none; padding: 0; cursor: pointer;
     transition: background 0.3s, transform 0.3s;
   }
-  .c-dot.on { background: var(--brass); transform: scale(1.4); }
-  .carousel-arrow {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    width: 40px; height: 40px; border-radius: 50%; z-index: 4;
-    background: rgba(243,239,226,0.15); border: 1px solid rgba(243,239,226,0.25);
-    color: var(--ivory); cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: opacity 0.2s, background 0.2s;
-  }
-  .testimonials-carousel:hover .carousel-arrow { opacity: 1; }
-  .carousel-arrow:hover { background: rgba(243,239,226,0.28); }
-  .carousel-arrow.prev { left: 16px; }
-  .carousel-arrow.next { right: 16px; }
-  .tcard {
-    background: var(--plaster);
-    border: 1px solid var(--rule-soft);
-    border-radius: 6px;
-    padding: 36px 36px 32px;
-    position: relative;
-  }
-  .tcard.featured {
-    background: var(--forest); color: var(--ivory);
-    border: none;
-  }
-  .tcard.featured::before {
-    content: "";
-    position: absolute; top: -1px; left: 36px; right: 36px;
-    height: 3px; background: var(--brass); border-radius: 0 0 2px 2px;
-  }
-  .tcard .stars {
-    display: flex; gap: 3px; margin-bottom: 18px;
-  }
-  .tcard .stars svg { width: 16px; height: 16px; fill: var(--brass); }
-  .tcard.featured .stars svg { fill: var(--brass); }
-  .tcard blockquote {
-    font-family: 'EB Garamond', serif; font-style: italic;
-    font-size: 21px; line-height: 1.5;
-    color: var(--forest); margin-bottom: 24px;
-  }
-  .tcard.featured blockquote {
-    font-size: 22px; color: var(--ivory);
-  }
-  .tcard .attribution {
-    display: flex; flex-direction: column; gap: 2px;
-    padding-top: 18px; border-top: 1px solid var(--rule);
-  }
-  .tcard.featured .attribution { border-color: rgba(243,239,226,0.18); }
-  .tcard .attribution .name {
-    font-family: 'EB Garamond', serif; font-style: italic;
-    font-size: 17px; color: var(--forest);
-  }
-  .tcard.featured .attribution .name { color: var(--ivory); }
-  .tcard .attribution .source {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--brass-deep);
-  }
-  .tcard.featured .attribution .source { color: var(--brass); }
-  .testimonials .ctas {
-    margin-top: 40px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
-  }
-  .testimonials .ctas a.link {
-    font-family: 'EB Garamond', serif; font-style: italic;
-    font-size: 17px; color: var(--forest);
-    text-decoration: none;
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 2px;
-    transition: color 0.18s, border-color 0.18s;
-  }
-  .testimonials .ctas a.link:hover { color: var(--brass-deep); border-color: var(--brass); }
-  .testimonials .ctas .sep { color: var(--rule); }
+  .t-dot.on { background: var(--brass); transform: scale(1.5); }
 
-  /* --- REVIEW PHOTO STRIP --- */
-  .review-photos {
-    display: flex; gap: 10px;
-    overflow-x: auto; scroll-snap-type: x mandatory;
-    padding: 0 0 10px;
-    margin: 24px 0 28px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(179,146,71,0.4) transparent;
+  /* Footer links */
+  .t-links {
+    margin-top: 28px; display: flex; gap: 14px; align-items: center;
+    position: relative; z-index: 1;
   }
-  .review-photos::-webkit-scrollbar { height: 3px; }
-  .review-photos::-webkit-scrollbar-thumb { background: rgba(179,146,71,0.4); border-radius: 99px; }
-  .review-photos::-webkit-scrollbar-track { background: transparent; }
-  .review-photo-thumb {
-    flex: 0 0 auto; width: 140px; height: 105px;
-    object-fit: cover; border-radius: 4px;
-    scroll-snap-align: start; cursor: pointer;
-    border: 2px solid rgba(179,146,71,0.25);
-    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  .t-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(243,239,226,0.3); text-decoration: none;
+    transition: color 0.2s;
   }
-  .review-photo-thumb:hover {
-    transform: scale(1.05);
-    border-color: var(--brass);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  .t-links a:hover { color: var(--brass); }
+  .t-links .sep { color: rgba(243,239,226,0.12); }
+
+  /* ——— RIGHT: PHOTO PANE ——— */
+  .t-pane-photo {
+    position: relative; overflow: hidden;
+    background: var(--forest-2);
+  }
+  /* Left-edge blend into quote pane */
+  .t-pane-photo::before {
+    content: ""; position: absolute;
+    top: 0; left: 0; bottom: 0; width: 80px;
+    background: linear-gradient(to right, var(--forest), transparent);
+    z-index: 5; pointer-events: none;
+  }
+  /* Bottom gradient behind thumbnails */
+  .t-pane-photo::after {
+    content: ""; position: absolute;
+    left: 0; right: 0; bottom: 0; height: 120px;
+    background: linear-gradient(to top, rgba(21,38,29,0.92), transparent);
+    z-index: 5; pointer-events: none;
+  }
+  .t-photo-main { position: absolute; inset: 0; overflow: hidden; }
+  .t-photo-main img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    transition: opacity 0.65s ease;
+  }
+  .t-photo-main img.t-photo-hidden { opacity: 0; }
+
+  /* Thumbnail strip */
+  .t-thumbs {
+    position: absolute; bottom: 18px; left: 16px; right: 16px;
+    display: flex; gap: 7px; z-index: 10;
+  }
+  .t-thumb {
+    flex: 1; max-width: 78px; height: 56px;
+    border-radius: 3px; overflow: hidden; cursor: pointer;
+    border: 1.5px solid rgba(179,146,71,0.18);
+    transition: border-color 0.2s, transform 0.2s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.45);
+  }
+  .t-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .t-thumb.active { border-color: var(--brass); }
+  .t-thumb:hover { transform: translateY(-2px); border-color: rgba(179,146,71,0.5); }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    .t-stage { grid-template-columns: 1fr; min-height: unset; }
+    .t-pane-quote { padding: 64px 0 48px; }
+    .t-pane-photo { height: 360px; }
+    .t-pane-photo::before { display: none; }
+  }
+  @media (max-width: 600px) {
+    .t-pane-photo { height: 260px; }
+    .t-header h2 { font-size: 36px; }
+    .t-quote { font-size: 16px; }
   }
 
   /* --- PROMISES / HOW WE WORK --- */
@@ -903,7 +942,7 @@
   }
   @media (max-width: 1024px) {
     .section-head, .about .wrap, .contact .head, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
-    .promises .head, .testimonials .head { grid-template-columns: 1fr; gap: 24px; }
+    .promises .head { grid-template-columns: 1fr; gap: 24px; }
     .gallery { grid-template-columns: repeat(6, 1fr); }
     .trust .wrap { grid-template-columns: repeat(2, 1fr); }
     footer.site .wrap { grid-template-columns: 1fr 1fr; }
@@ -1223,87 +1262,53 @@
   </div>
 </section>
 
-<!-- =========== TESTIMONIALS (NEW) =========== -->
+<!-- =========== TESTIMONIALS (PREMIUM) =========== -->
 <section class="testimonials" id="reviews">
+  <div class="t-progress-wrap"><div id="t-progress"></div></div>
   <div class="wrap">
-    <div class="head">
-      <div>
-        <span class="eyebrow reveal">What our customers say</span>
-        <h2 class="reveal d1">5.0 stars.<br/><em>Every time.</em></h2>
-      </div>
-      <div class="sub reveal d2">
-        Every single one.<br/>
-        12 five-star reviews across Google &amp; Facebook
-      </div>
-    </div>
+    <div class="t-stage">
 
-    <div class="testimonials-carousel reveal">
-      <button class="carousel-arrow prev" aria-label="Previous review">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg>
-      </button>
-      <button class="carousel-arrow next" aria-label="Next review">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
-      </button>
-      <div class="testimonials-track">
-      <!-- Featured testimonial — Mitch C. -->
-      <div class="tcard featured">
-        <div class="stars">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <!-- Left: Quote pane -->
+      <div class="t-pane-quote">
+        <div class="t-header reveal">
+          <span class="eyebrow">What our customers say</span>
+          <h2>5.0 stars.<br/><em>Every time.</em></h2>
         </div>
-        <blockquote>"Authentically, the best contractor I've ever worked with. I hired Kurt at Illuminated Electrical Services for a full home library and office renovation — the results genuinely stopped people in their tracks. I wanted a dramatic, custom-lit built-in bookshelf setup with a crystal chandelier as the centerpiece. Kurt made that happen. Licensed, professional, punctual, and meticulous — zero exposed wires, perfectly centered fixtures, everything up to code. If you need an electrician who can handle both the technical and aesthetic side of a high-end project, Kurt is your guy."</blockquote>
-        <!-- Mitch C. review photos — home library renovation -->
-        <div class="review-photos">
-          <img class="review-photo-thumb" data-lb="6" src="assets/library-chandelier.jpg" alt="Home library chandelier installation — Mitch C." loading="lazy" />
-          <img class="review-photo-thumb" data-lb="7" src="assets/library-wide.jpg" alt="Full home library renovation — Mitch C." loading="lazy" />
-          <img class="review-photo-thumb" data-lb="8" src="assets/library-nook.jpg" alt="Library reading nook with built-ins — Mitch C." loading="lazy" />
-          <img class="review-photo-thumb" data-lb="9" src="assets/library-office.jpg" alt="Custom built-in shelves with LED lighting — Mitch C." loading="lazy" />
-          <img class="review-photo-thumb" data-lb="10" src="assets/closet-office.jpg" alt="Closet office conversion with LED shelf lighting — Mitch C." loading="lazy" />
+        <div class="t-review reveal d1" id="t-review">
+          <div class="t-stars" id="t-stars"></div>
+          <blockquote class="t-quote" id="t-quote"></blockquote>
+          <div class="t-attr">
+            <div class="t-name" id="t-name"></div>
+            <div class="t-source" id="t-source"></div>
+          </div>
         </div>
-        <div class="attribution">
-          <div class="name">Mitch C.</div>
-          <div class="source">Connecticut · Google Review</div>
+        <div class="t-nav reveal d2">
+          <button class="t-arrow" id="t-prev" aria-label="Previous review">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg>
+          </button>
+          <div class="t-dots" id="t-dots"></div>
+          <button class="t-arrow" id="t-next" aria-label="Next review">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
+          </button>
+        </div>
+        <div class="t-links reveal d2">
+          <a href="https://share.google/oZpyMZh6n5RXWsUWL" target="_blank" rel="noopener">All Google reviews →</a>
+          <span class="sep">·</span>
+          <a href="https://www.facebook.com/illuminatedelectricalservices" target="_blank" rel="noopener">Facebook →</a>
         </div>
       </div>
 
-      <!-- Second testimonial — Alyson R. -->
-      <div class="tcard featured reveal d1">
-        <div class="stars">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <!-- Right: Photo pane -->
+      <div class="t-pane-photo" id="t-pane-photo">
+        <div class="t-photo-main" id="t-photo-main">
+          <img id="t-photo-a" src="" alt="" />
+          <img id="t-photo-b" src="" alt="" class="t-photo-hidden" />
         </div>
-        <blockquote>"Kurt and his team were on-time, meticulous, and always left the area they worked in just as they found it — clean. Easy to work with, reasonably priced, and if I could give them more stars I would. Highly recommend Kurt if you're looking for an honest, hardworking electrician who takes pride in the work they do."</blockquote>
-        <!-- Alyson R. review photos -->
-        <div class="review-photos">
-          <img class="review-photo-thumb" data-lb="11" src="https://lh3.googleusercontent.com/grass-cs/ANxoTn1pZwEnMyQD5PCIrIpEnCOc9R5kPZG5_-k1vCvLy6ByOYS4P9xqUk_S_z1CUWU99rMLLTEJk6jv1W4ZkU5GcBlS0OSDf_KaSBb8JLkTCHIzO-XL2nE2mbNBJwYBFDlxsVk1g-o6Zq7WeZa7=s400-p-k-rw" alt="Customer photo 1 — Alyson R." loading="lazy" />
-          <img class="review-photo-thumb" data-lb="12" src="https://lh3.googleusercontent.com/grass-cs/ANxoTn1gOk4klXeTgufgIc01GAi7VG2S6jAcKViOt20ZA783cJ4OP43tAv-KAPVp0go_72h7Z9mcSV8xh470pJUi2nu5UGVtXu5cqzawQDsV-FWc3QLCXJcl-TOlGiRUsL_AmbUvH9I2yQS4yz8N=s400-p-k-rw" alt="Customer photo 2 — Alyson R." loading="lazy" />
-          <img class="review-photo-thumb" data-lb="13" src="https://lh3.googleusercontent.com/grass-cs/ANxoTn1_OwYJI5suisGJ3fLONQc2j89vCJGcBXXsPk36c-2bWAOue1o9rD9pESF3aYYtOzvCBi58BYK_qnQOYFy40vqKYfh1m7WSwN6gGejcWnT8kkKtl9QcdWfa0RM1vsIeXP-CNisTiFl1A8CZ=s400-p-k-rw" alt="Customer photo 3 — Alyson R." loading="lazy" />
-          <img class="review-photo-thumb" data-lb="14" src="https://lh3.googleusercontent.com/grass-cs/ANxoTn0ddu4EGzCp09FakZ8McyUNoDK-5cqcZfcA101x54GWyFgMGhalaJ01VJFJlrqHZ1rGSo6H22ueLSpvLf9YDBHRP1LbB49qXEYSHx0PiIuYdytvthycNQNGETAB64WmhdPM4GohEGfAEKp_=s400-p-k-rw" alt="Customer photo 4 — Alyson R." loading="lazy" />
-        </div>
-        <div class="attribution">
-          <div class="name">Alyson R.</div>
-          <div class="source">Brookfield, CT · Google Review</div>
-        </div>
+        <div class="t-thumbs" id="t-thumbs"></div>
       </div>
-      </div><!-- /.testimonials-track -->
-      <div class="carousel-nav">
-        <button class="c-dot on" aria-label="Review 1 of 2"></button>
-        <button class="c-dot" aria-label="Review 2 of 2"></button>
-      </div>
-    </div><!-- /.testimonials-carousel -->
 
-    <div class="ctas reveal">
-      <a class="link" href="https://share.google/oZpyMZh6n5RXWsUWL" target="_blank" rel="noopener">Read all reviews on Google →</a>
-      <span class="sep">·</span>
-      <a class="link" href="https://www.facebook.com/illuminatedelectricalservices" target="_blank" rel="noopener">See us on Facebook →</a>
-    </div>
-  </div>
+    </div><!-- /.t-stage -->
+  </div><!-- /.wrap -->
 </section>
 
 <!-- =========== HOW WE WORK / PROMISES =========== -->
@@ -1872,9 +1877,10 @@
   document.querySelectorAll('.tile[data-i]').forEach(tile => {
     tile.addEventListener('click', e => { e.preventDefault(); openLb(parseInt(tile.dataset.i, 10)); });
   });
-  // Review photo thumbnails — data-lb holds absolute lightbox index
-  document.querySelectorAll('.review-photo-thumb[data-lb]').forEach(thumb => {
-    thumb.addEventListener('click', () => { openLb(parseInt(thumb.dataset.lb, 10)); });
+  // Review photo thumbnails — event delegation supports dynamically-built thumbs
+  document.addEventListener('click', e => {
+    const thumb = e.target.closest('[data-lb]');
+    if (thumb) openLb(parseInt(thumb.dataset.lb, 10));
   });
   document.getElementById('lbClose').addEventListener('click', closeLb);
   document.getElementById('lbPrev').addEventListener('click', () => navLb(-1));
@@ -1887,32 +1893,164 @@
     if (e.key === 'ArrowRight') navLb(1);
   });
 
-  // ----- Testimonials carousel -----
+  // ----- Premium Testimonials -----
   (function() {
-    const carousel = document.querySelector('.testimonials-carousel');
-    if (!carousel) return;
-    const track = carousel.querySelector('.testimonials-track');
-    const cards = track.querySelectorAll('.tcard');
-    const dots  = carousel.querySelectorAll('.c-dot');
-    const prev  = carousel.querySelector('.carousel-arrow.prev');
-    const next  = carousel.querySelector('.carousel-arrow.next');
-    let cur = 0, timer;
+    const DURATION = 8000;
+    const STAR = '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
 
-    function goTo(i) {
-      cur = ((i % cards.length) + cards.length) % cards.length;
-      track.style.transform = `translateX(-${100 * cur}%)`;
-      dots.forEach((d, j) => d.classList.toggle('on', j === cur));
+    const reviews = [
+      {
+        name: 'Mitch C.',
+        source: 'Connecticut · Google Review',
+        quote: '“Authentically, the best contractor I’ve ever worked with. I hired Kurt at Illuminated Electrical Services for a full home library and office renovation — the results genuinely stopped people in their tracks. I wanted a dramatic, custom-lit built-in bookshelf setup with a crystal chandelier as the centerpiece. Kurt made that happen. Licensed, professional, punctual, and meticulous — zero exposed wires, perfectly centered fixtures, everything up to code. If you need an electrician who can handle both the technical and aesthetic side of a high-end project, Kurt is your guy.”',
+        photos: [
+          { src: 'assets/library-chandelier.jpg', lb: 6,  alt: 'Home library chandelier installation' },
+          { src: 'assets/library-wide.jpg',       lb: 7,  alt: 'Full home library renovation' },
+          { src: 'assets/library-nook.jpg',        lb: 8,  alt: 'Library reading nook with built-ins' },
+          { src: 'assets/library-office.jpg',      lb: 9,  alt: 'Custom built-in shelves with LED lighting' },
+          { src: 'assets/closet-office.jpg',       lb: 10, alt: 'Closet office with LED shelf lighting' },
+        ]
+      },
+      {
+        name: 'Alyson R.',
+        source: 'Brookfield, CT · Google Review',
+        quote: '“Kurt and his team were on-time, meticulous, and always left the area they worked in just as they found it — clean. Easy to work with, reasonably priced, and if I could give them more stars I would. Highly recommend Kurt if you’re looking for an honest, hardworking electrician who takes pride in the work they do.”',
+        photos: [
+          { src: 'https://lh3.googleusercontent.com/grass-cs/ANxoTn1pZwEnMyQD5PCIrIpEnCOc9R5kPZG5_-k1vCvLy6ByOYS4P9xqUk_S_z1CUWU99rMLLTEJk6jv1W4ZkU5GcBlS0OSDf_KaSBb8JLkTCHIzO-XL2nE2mbNBJwYBFDlxsVk1g-o6Zq7WeZa7=s400-p-k-rw', lb: 11, alt: 'Customer photo 1 — Alyson R.' },
+          { src: 'https://lh3.googleusercontent.com/grass-cs/ANxoTn1gOk4klXeTgufgIc01GAi7VG2S6jAcKViOt20ZA783cJ4OP43tAv-KAPVp0go_72h7Z9mcSV8xh470pJUi2nu5UGVtXu5cqzawQDsV-FWc3QLCXJcl-TOlGiRUsL_AmbUvH9I2yQS4yz8N=s400-p-k-rw', lb: 12, alt: 'Customer photo 2 — Alyson R.' },
+          { src: 'https://lh3.googleusercontent.com/grass-cs/ANxoTn1_OwYJI5suisGJ3fLONQc2j89vCJGcBXXsPk36c-2bWAOue1o9rD9pESF3aYYtOzvCBi58BYK_qnQOYFy40vqKYfh1m7WSwN6gGejcWnT8kkKtl9QcdWfa0RM1vsIeXP-CNisTiFl1A8CZ=s400-p-k-rw', lb: 13, alt: 'Customer photo 3 — Alyson R.' },
+          { src: 'https://lh3.googleusercontent.com/grass-cs/ANxoTn0ddu4EGzCp09FakZ8McyUNoDK-5cqcZfcA101x54GWyFgMGhalaJ01VJFJlrqHZ1rGSo6H22ueLSpvLf9YDBHRP1LbB49qXEYSHx0PiIuYdytvthycNQNGETAB64WmhdPM4GohEGfAEKp_=s400-p-k-rw', lb: 14, alt: 'Customer photo 4 — Alyson R.' },
+        ]
+      }
+    ];
+
+    const elStars  = document.getElementById('t-stars');
+    const elQuote  = document.getElementById('t-quote');
+    const elName   = document.getElementById('t-name');
+    const elSrc    = document.getElementById('t-source');
+    const elDots   = document.getElementById('t-dots');
+    const elThumbs = document.getElementById('t-thumbs');
+    const elProg   = document.getElementById('t-progress');
+    const elRev    = document.getElementById('t-review');
+    const imgA     = document.getElementById('t-photo-a');
+    const imgB     = document.getElementById('t-photo-b');
+    const elPrev   = document.getElementById('t-prev');
+    const elNext   = document.getElementById('t-next');
+    if (!elStars || !imgA) return;
+
+    let cur = 0, useA = true, timer;
+
+    // Build nav dots
+    reviews.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 't-dot' + (i === 0 ? ' on' : '');
+      d.setAttribute('aria-label', 'Review ' + (i + 1) + ' of ' + reviews.length);
+      d.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); });
+      elDots.appendChild(d);
+    });
+
+    function updateDots(i) {
+      elDots.querySelectorAll('.t-dot').forEach((d, j) => d.classList.toggle('on', j === i));
     }
-    function startAuto() { timer = setInterval(() => goTo(cur + 1), 7000); }
+
+    // Crossfade main photo using two stacked img layers
+    function setMainPhoto(src, alt) {
+      const next = useA ? imgB : imgA;
+      const prev = useA ? imgA : imgB;
+      next.src = src; next.alt = alt;
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        prev.classList.add('t-photo-hidden');
+        next.classList.remove('t-photo-hidden');
+        useA = !useA;
+      }));
+    }
+
+    // Build thumbnail strip for current review
+    function buildThumbs(review) {
+      elThumbs.innerHTML = '';
+      review.photos.forEach((p, i) => {
+        const div = document.createElement('div');
+        div.className = 't-thumb' + (i === 0 ? ' active' : '');
+        div.dataset.lb = p.lb;
+        const img = document.createElement('img');
+        img.src = p.src; img.alt = p.alt; img.loading = 'lazy';
+        div.appendChild(img);
+        div.addEventListener('click', () => {
+          setMainPhoto(p.src, p.alt);
+          elThumbs.querySelectorAll('.t-thumb').forEach((t, j) => t.classList.toggle('active', j === i));
+        });
+        elThumbs.appendChild(div);
+      });
+    }
+
+    // Brass progress bar — CSS linear transition
+    function resetProgress() {
+      if (!elProg) return;
+      elProg.style.transition = 'none';
+      elProg.style.width = '0%';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        elProg.style.transition = 'width ' + DURATION + 'ms linear';
+        elProg.style.width = '100%';
+      }));
+    }
+
+    // Populate text + photo content for a review
+    function populateContent(review) {
+      elStars.innerHTML = STAR.repeat(5);
+      elQuote.textContent = review.quote;
+      elName.textContent  = review.name;
+      elSrc.textContent   = review.source;
+      buildThumbs(review);
+      setMainPhoto(review.photos[0].src, review.photos[0].alt);
+    }
+
+    // Elegant crossfade transition between reviews
+    function goTo(i) {
+      const next = ((i % reviews.length) + reviews.length) % reviews.length;
+
+      // Fade out
+      elRev.style.transition = 'opacity 0.32s ease, transform 0.32s ease';
+      elRev.style.opacity = '0';
+      elRev.style.transform = 'translateY(-8px)';
+
+      setTimeout(() => {
+        cur = next;
+        updateDots(next);
+        populateContent(reviews[next]);
+        resetProgress();
+
+        // Snap to below, then animate up
+        elRev.style.transition = 'none';
+        elRev.style.opacity = '0';
+        elRev.style.transform = 'translateY(12px)';
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          elRev.style.transition = 'opacity 0.52s ease, transform 0.52s ease';
+          elRev.style.opacity = '1';
+          elRev.style.transform = 'translateY(0)';
+        }));
+      }, 340);
+    }
+
+    function startAuto() { timer = setInterval(() => goTo(cur + 1), DURATION); }
     function stopAuto()  { clearInterval(timer); }
 
-    prev.addEventListener('click', () => { stopAuto(); goTo(cur - 1); startAuto(); });
-    next.addEventListener('click', () => { stopAuto(); goTo(cur + 1); startAuto(); });
-    dots.forEach((d, i) => d.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); }));
-    carousel.addEventListener('mouseenter', stopAuto);
-    carousel.addEventListener('mouseleave', startAuto);
+    // Pause on hover
+    const section = document.getElementById('reviews');
+    if (section) {
+      section.addEventListener('mouseenter', () => { stopAuto(); if (elProg) elProg.style.transition = 'none'; });
+      section.addEventListener('mouseleave', () => { startAuto(); resetProgress(); });
+    }
 
-    goTo(0); startAuto();
+    elPrev.addEventListener('click', () => { stopAuto(); goTo(cur - 1); startAuto(); });
+    elNext.addEventListener('click', () => { stopAuto(); goTo(cur + 1); startAuto(); });
+
+    // Initialise — show first review without animation
+    elRev.style.opacity = '1';
+    elRev.style.transform = 'translateY(0)';
+    updateDots(0);
+    populateContent(reviews[0]);
+    resetProgress();
+    startAuto();
   })();
 
   // ----- Sticky call bar — show after hero scrolls out of view -----
