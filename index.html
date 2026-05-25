@@ -1895,7 +1895,8 @@
 
   // ----- Premium Testimonials -----
   (function() {
-    const DURATION = 8000;
+    const DURATION    = 20000;  // 20 s — enough time to read the full quote
+    const INTENT_HOLD = 60000; // 60 s lock-out after a manual arrow / dot click
     const STAR = '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
 
     const reviews = [
@@ -1938,14 +1939,14 @@
     const elNext   = document.getElementById('t-next');
     if (!elStars || !imgA) return;
 
-    let cur = 0, useA = true, timer;
+    let cur = 0, useA = true, timer, intentTimer, manualMode = false;
 
     // Build nav dots
     reviews.forEach((_, i) => {
       const d = document.createElement('button');
       d.className = 't-dot' + (i === 0 ? ' on' : '');
       d.setAttribute('aria-label', 'Review ' + (i + 1) + ' of ' + reviews.length);
-      d.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); });
+      d.addEventListener('click', () => manualNav(i));
       elDots.appendChild(d);
     });
 
@@ -1988,6 +1989,7 @@
       if (!elProg) return;
       elProg.style.transition = 'none';
       elProg.style.width = '0%';
+      if (manualMode) return;   // bar stays dark during the intent hold
       requestAnimationFrame(() => requestAnimationFrame(() => {
         elProg.style.transition = 'width ' + DURATION + 'ms linear';
         elProg.style.width = '100%';
@@ -2031,18 +2033,27 @@
       }, 340);
     }
 
-    function startAuto() { timer = setInterval(() => goTo(cur + 1), DURATION); }
-    function stopAuto()  { clearInterval(timer); }
+    function startAuto()  { manualMode = false; timer = setInterval(() => goTo(cur + 1), DURATION); }
+    function stopAuto()   { clearInterval(timer); }
 
-    // Pause on hover
+    // Manual nav — user showed intent; lock out auto-advance for INTENT_HOLD
+    function manualNav(idx) {
+      clearTimeout(intentTimer);
+      stopAuto();
+      manualMode = true;
+      goTo(idx);
+      intentTimer = setTimeout(() => { startAuto(); resetProgress(); }, INTENT_HOLD);
+    }
+
+    // Pause on hover; don't fight the intent hold on mouseleave
     const section = document.getElementById('reviews');
     if (section) {
       section.addEventListener('mouseenter', () => { stopAuto(); if (elProg) elProg.style.transition = 'none'; });
-      section.addEventListener('mouseleave', () => { startAuto(); resetProgress(); });
+      section.addEventListener('mouseleave', () => { if (!manualMode) { startAuto(); resetProgress(); } });
     }
 
-    elPrev.addEventListener('click', () => { stopAuto(); goTo(cur - 1); startAuto(); });
-    elNext.addEventListener('click', () => { stopAuto(); goTo(cur + 1); startAuto(); });
+    elPrev.addEventListener('click', () => manualNav(cur - 1));
+    elNext.addEventListener('click', () => manualNav(cur + 1));
 
     // Initialise — show first review without animation
     elRev.style.opacity = '1';
