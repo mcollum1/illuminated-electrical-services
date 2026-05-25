@@ -627,32 +627,6 @@
     transition: transform 0.25s, background 0.2s, border-color 0.2s; z-index: 2;
   }
   .cat:hover .arrow { transform: translate(2px, -2px); background: var(--brass); border-color: var(--brass); color: var(--forest); }
-  .full-services { margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--rule); }
-  .full-services summary {
-    list-style: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: space-between; padding: 4px 0;
-  }
-  .full-services summary::-webkit-details-marker { display: none; }
-  .full-services summary .lbl { font-family: 'EB Garamond', serif; font-style: italic; font-size: 22px; color: var(--forest); }
-  .full-services summary .ind {
-    width: 36px; height: 36px; border-radius: 50%;
-    border: 1px solid var(--forest);
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.3s;
-  }
-  .full-services[open] summary .ind { transform: rotate(45deg); }
-  .full-services .list {
-    margin-top: 28px; display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 0; border-top: 1px solid var(--rule);
-  }
-  .full-services .list .it {
-    padding: 18px 16px; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule);
-    display: flex; align-items: center; gap: 12px; font-size: 14px; transition: background 0.2s;
-  }
-  .full-services .list .it:nth-child(4n) { border-right: 0; }
-  .full-services .list .it:hover { background: var(--plaster); }
-  .full-services .list .it .n { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--brass-deep); width: 24px; }
-  .full-services .list .it .nm { font-family: 'EB Garamond', serif; font-style: italic; font-size: 18px; color: var(--forest); }
 
   /* --- ABOUT --- */
   .about { padding: 110px 0; background: var(--plaster); }
@@ -899,9 +873,6 @@
   @media (max-width: 1100px) {
     .gallery { grid-auto-rows: 200px; }
     .cat-grid { grid-template-columns: repeat(2, 1fr); }
-    .full-services .list { grid-template-columns: repeat(3, 1fr); }
-    .full-services .list .it:nth-child(4n) { border-right: 1px solid var(--rule); }
-    .full-services .list .it:nth-child(3n) { border-right: 0; }
     .promise-grid { grid-template-columns: repeat(2, 1fr); }
     .testimonials-grid { grid-template-columns: 1fr; }
   }
@@ -921,9 +892,6 @@
     .gallery { grid-template-columns: 1fr; grid-auto-rows: 240px; }
     .tile.t1, .tile.t2, .tile.t3, .tile.t4, .tile.t5, .tile.t6, .tile.t7, .tile.t8 { grid-column: span 1; grid-row: span 1; }
     .cat-grid { grid-template-columns: 1fr; }
-    .full-services .list { grid-template-columns: repeat(2, 1fr); }
-    .full-services .list .it:nth-child(3n) { border-right: 1px solid var(--rule); }
-    .full-services .list .it:nth-child(2n) { border-right: 0; }
     .trust .wrap { grid-template-columns: 1fr; }
     .trust .item.cta-item { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 20px; justify-content: flex-start; }
     footer.site .wrap { grid-template-columns: 1fr; }
@@ -1456,29 +1424,6 @@
       </a>
     </div>
 
-    <details class="full-services reveal">
-      <summary>
-        <span class="lbl">See all 13 services in detail</span>
-        <span class="ind">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg>
-        </span>
-      </summary>
-      <div class="list">
-        <div class="it"><span class="n">01</span><span class="nm">Residential</span></div>
-        <div class="it"><span class="n">02</span><span class="nm">Commercial</span></div>
-        <div class="it"><span class="n">03</span><span class="nm">New Construction</span></div>
-        <div class="it"><span class="n">04</span><span class="nm">New Additions</span></div>
-        <div class="it"><span class="n">05</span><span class="nm">Repairs</span></div>
-        <div class="it"><span class="n">06</span><span class="nm">Remodels</span></div>
-        <div class="it"><span class="n">07</span><span class="nm">Kitchens</span></div>
-        <div class="it"><span class="n">08</span><span class="nm">Baths</span></div>
-        <div class="it"><span class="n">09</span><span class="nm">Service Upgrades</span></div>
-        <div class="it"><span class="n">10</span><span class="nm">Generators</span></div>
-        <div class="it"><span class="n">11</span><span class="nm">Landscape Lighting</span></div>
-        <div class="it"><span class="n">12</span><span class="nm">A/V Equipment</span></div>
-        <div class="it"><span class="n">13</span><span class="nm">Data Cabling</span></div>
-      </div>
-    </details>
   </div>
 </section>
 
